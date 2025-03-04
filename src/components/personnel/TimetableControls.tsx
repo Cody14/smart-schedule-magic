@@ -44,20 +44,7 @@ const TimetableControls: React.FC = () => {
       </CardHeader>
 
       <CardContent className="pt-4">
-        <div className="flex items-center mb-4">
-          <div className="flex items-center mr-6">
-            <ScheduleIndicator type="prefer-work" className="mr-2" />
-            <span className="text-sm text-gray-700">Prefer work</span>
-          </div>
-          <div className="flex items-center">
-            <ScheduleIndicator type="must-work" className="mr-2" />
-            <span className="text-sm text-gray-700">Must work</span>
-          </div>
-        </div>
-        
-        <div className="overflow-x-auto">
-          <TimetableGrid />
-        </div>
+        <TimetableGrid />
       </CardContent>
     </Card>
   );

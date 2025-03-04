@@ -4,7 +4,7 @@ import Layout from '@/components/layout/Layout';
 import { TeacherChip } from '@/components/schedule/TeacherChips';
 import { toast } from '@/components/ui/use-toast';
 
-// Import our new components
+// Import our components
 import PersonnelTabs from '@/components/personnel/PersonnelTabs';
 import PersonnelSelection from '@/components/personnel/PersonnelSelection';
 import TeacherSettings from '@/components/personnel/TeacherSettings';
@@ -52,31 +52,29 @@ const Personnel = () => {
         
         <div className="p-4">
           {activeTab === 'personnel' ? (
-            <div className="animate-fade-in">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <div className="lg:col-span-4 space-y-4">
-                  <PersonnelSelection
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                    selectedTeachers={selectedTeachers}
-                    handleTeacherClick={handleTeacherClick}
-                    teachers={TEACHER_CHIPS}
-                  />
-                  
-                  <TeacherSettings
-                    isSettingsOpen={isSettingsOpen}
-                    setIsSettingsOpen={setIsSettingsOpen}
-                  />
-                  
-                  <CommentSection />
-                </div>
+            <div className="animate-fade-in space-y-4">
+              {/* Top section with all controls */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <PersonnelSelection
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  selectedTeachers={selectedTeachers}
+                  handleTeacherClick={handleTeacherClick}
+                  teachers={TEACHER_CHIPS}
+                />
                 
-                <div className="lg:col-span-8">
-                  <TimetableControls />
-                  
-                  <ActionButtons onSave={handleSave} />
-                </div>
+                <TeacherSettings
+                  isSettingsOpen={isSettingsOpen}
+                  setIsSettingsOpen={setIsSettingsOpen}
+                />
+                
+                <CommentSection />
               </div>
+              
+              {/* Timetable section */}
+              <TimetableControls />
+              
+              <ActionButtons onSave={handleSave} />
             </div>
           ) : (
             <TabContent tabName={activeTab} />
