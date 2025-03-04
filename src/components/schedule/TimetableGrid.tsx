@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import ScheduleIndicator from './ScheduleIndicator';
 import TeacherChips, { TeacherChip } from './TeacherChips';
+import { toast } from '@/components/ui/use-toast';
 
 interface TimeSlot {
   id: string;
@@ -59,7 +59,14 @@ const TimetableCell: React.FC<TimetableCellProps> = ({
   
   return (
     <div 
-      className="timetable-cell"
+      className={cn(
+        "timetable-cell group",
+        (preferWork || mustWork || cannotWork || preferNot) && "relative",
+        cannotWork && "bg-red-50",
+        preferNot && "bg-orange-50",
+        preferWork && "bg-blue-50",
+        mustWork && "bg-indigo-50"
+      )}
       onClick={handleCellClick}
     >
       <TeacherChips 
@@ -68,7 +75,7 @@ const TimetableCell: React.FC<TimetableCellProps> = ({
       />
       
       {(preferWork || mustWork || cannotWork || preferNot) && (
-        <div className="absolute bottom-2 right-2">
+        <div className="absolute bottom-2 right-2 transition-transform transform group-hover:scale-110">
           {preferWork && <ScheduleIndicator type="prefer-work" size="sm" />}
           {mustWork && <ScheduleIndicator type="must-work" size="sm" />}
           {cannotWork && <ScheduleIndicator type="cannot-work" size="sm" />}
@@ -132,7 +139,7 @@ interface ScheduleData {
 
 const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
   const [scheduleData, setScheduleData] = useState<ScheduleData>(() => {
-    // Initialize with some sample data
+    // Initialize with sample data
     const initialData: ScheduleData = {};
     
     DAYS.forEach(day => {
@@ -187,7 +194,21 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
       
       // Set the new indicator if not null
       if (indicator) {
-        newData[day.id][timeSlot.id][indicator] = true;
+        newData[day.id][timeSlot.id][indicator.replace('-', '') as keyof typeof newData[string][string]] = true;
+        
+        // Show a toast notification
+        const indicatorLabels = {
+          'prefer-work': 'Prefer work',
+          'must-work': 'Must work',
+          'cannot-work': 'Cannot work',
+          'prefer-not': 'Prefer not'
+        };
+        
+        toast({
+          title: `Schedule updated`,
+          description: `${day.name}, ${timeSlot.start}-${timeSlot.end}: ${indicatorLabels[indicator]}`,
+          duration: 2000,
+        });
       }
       
       return newData;
@@ -198,20 +219,20 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
     <div className={cn("w-full overflow-auto border rounded-md bg-white animate-scale-in", className)}>
       <table className="w-full border-collapse">
         <thead>
-          <tr>
-            <th className="timetable-header w-24">#</th>
-            <th className="timetable-header w-24">Time</th>
+          <tr className="bg-gray-50">
+            <th className="timetable-header w-12 sm:w-16">#</th>
+            <th className="timetable-header w-20 sm:w-24">Time</th>
             {DAYS.map(day => (
               <th key={day.id} className="timetable-header">
-                {day.name}
+                {window.innerWidth > 640 ? day.name : day.name.substring(0, 3)}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {TIME_SLOTS.map((slot, index) => (
-            <tr key={slot.id}>
-              <td className="timetable-time">{index + 1}</td>
+            <tr key={slot.id} className={index % 2 === 0 ? "bg-gray-50/30" : ""}>
+              <td className="timetable-time text-center">{index + 1}</td>
               <td className="timetable-time">{`${slot.start} - ${slot.end}`}</td>
               {DAYS.map(day => (
                 <td key={`${day.id}-${slot.id}`} className="p-0">

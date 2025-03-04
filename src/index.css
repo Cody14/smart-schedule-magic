@@ -85,6 +85,16 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  
+  /* Improve focus styles */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @layer components {
@@ -93,7 +103,7 @@
   }
   
   .schedule-indicator {
-    @apply flex items-center justify-center w-6 h-6 rounded-full text-white transition-transform duration-300 transform hover:scale-110;
+    @apply flex items-center justify-center rounded-full text-white transition-transform duration-300 transform hover:scale-110;
   }
   
   .schedule-indicator.prefer-work {
@@ -113,7 +123,7 @@
   }
   
   .timetable-cell {
-    @apply border border-gray-200 p-2 min-h-[80px] relative transition-colors duration-200 hover:bg-gray-50;
+    @apply border border-gray-200 p-2 min-h-[80px] relative transition-all duration-200 hover:bg-gray-50 cursor-pointer;
   }
   
   .timetable-header {
@@ -121,6 +131,50 @@
   }
   
   .timetable-time {
-    @apply bg-gray-100 font-medium py-3 px-4 text-right border border-gray-200 whitespace-nowrap;
+    @apply bg-gray-100 font-medium py-3 px-2 sm:px-4 text-right border border-gray-200 whitespace-nowrap;
   }
+}
+
+/* Animation classes */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Transition utilities */
+.transition-fast {
+  transition-duration: 150ms;
+}
+
+.transition-medium {
+  transition-duration: 300ms;
+}
+
+.transition-slow {
+  transition-duration: 500ms;
+}
+
+/* Hover effects */
+.hover-lift {
+  @apply transition-transform duration-300;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+}
+
+.hover-shadow {
+  @apply transition-shadow duration-300;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
