@@ -13,9 +13,9 @@ const Layout = ({ children, className }: LayoutProps) => {
   const location = useLocation();
   
   return (
-    <div className="min-h-screen w-full flex flex-col">
+    <div className="min-h-screen w-full flex flex-col bg-white">
       <Header currentPath={location.pathname} />
-      <main className={cn("flex-1 overflow-auto p-4 md:p-6 animate-fade-in", className)}>
+      <main className={cn("flex-1 overflow-auto animate-fade-in", className)}>
         {children}
       </main>
     </div>

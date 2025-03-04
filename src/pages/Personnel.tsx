@@ -12,8 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { 
-  Check, X, ChevronDown, ChevronRight, Edit2, Search, 
-  RotateCcw, Plus, Trash, Save, Download, Upload, Printer 
+  Check, X, ChevronDown, ChevronRight, Search, 
+  Trash, Plus, Save, RotateCw 
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from '@/components/ui/use-toast';
@@ -50,7 +50,7 @@ const TEACHER_CHIPS: TeacherChip[] = [
 ];
 
 const Personnel = () => {
-  const [selectedTeachers, setSelectedTeachers] = useState<string[]>(['bc', 'cf', 'em', 'hu']);
+  const [selectedTeachers, setSelectedTeachers] = useState<string[]>(['bc', 'cf', 'em', 'hu', 'jm', 'lc', 'lp']);
   const [activeTab, setActiveTab] = useState<string>('personnel');
   const [searchQuery, setSearchQuery] = useState('');
   const [isSettingsOpen, setIsSettingsOpen] = useState(true);
@@ -83,386 +83,303 @@ const Personnel = () => {
     });
   };
   
+  const tabItems = ['personnel', 'classes', 'teams', 'subjects', 'rooms', 'rules', 'periods'];
+  
   return (
     <Layout>
-      <div className="max-w-[1400px] mx-auto space-y-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-4">
-          <h1 className="text-2xl font-semibold text-gray-900">Personnel Management</h1>
-          
-          <div className="flex items-center space-x-2 w-full md:w-auto">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="outline" size="icon">
-                    <RotateCcw className="h-4 w-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Undo changes</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="outline" size="icon">
-                    <Upload className="h-4 w-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Import CSV</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="outline" size="icon">
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Export CSV</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="outline" size="icon">
-                    <Printer className="h-4 w-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Print</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+      <div className="relative w-full">
+        <div className="w-full bg-white border-b flex overflow-x-auto">
+          {tabItems.map((tab) => (
+            <button
+              key={tab}
+              className={cn(
+                "px-6 py-4 text-sm font-medium capitalize border-b-2 whitespace-nowrap",
+                activeTab === tab 
+                  ? "border-blue-600 text-blue-600" 
+                  : "border-transparent hover:text-blue-600 text-gray-600"
+              )}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
         
-        <Tabs defaultValue="personnel" className="w-full">
-          <TabsList className="w-full mb-6 bg-white border-b overflow-x-auto flex items-center">
-            {['personnel', 'classes', 'teams', 'subjects', 'rooms', 'rules', 'periods'].map((tab) => (
-              <TabsTrigger
-                key={tab}
-                value={tab}
-                className={cn(
-                  "px-4 py-2 text-sm font-medium capitalize",
-                  activeTab === tab ? "border-b-2 border-primary" : "hover:text-primary"
-                )}
-                onClick={() => setActiveTab(tab)}
-              >
-                {tab}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          
-          <TabsContent value="personnel" className="mt-6 animate-fade-in">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="col-span-1 space-y-4">
-                <Card>
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-sm font-medium">Select Personnel</CardTitle>
-                      <span className="text-xs text-gray-500">{selectedTeachers.length}/{TEACHER_CHIPS.length}</span>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="mb-4 relative">
-                      <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
-                      <Input
-                        type="text"
-                        placeholder="Search personnel..."
-                        className="pl-8"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                      />
-                    </div>
-                    <div className="flex flex-wrap gap-1 max-h-96 overflow-y-auto p-2 border rounded-md mb-4">
-                      <TeacherChips 
-                        teachers={filteredTeachers} 
-                        selectedTeachers={selectedTeachers}
-                        onTeacherClick={handleTeacherClick}
-                        selectable
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
-                  <Card>
-                    <CardHeader className="pb-3">
+        <div className="p-4">
+          {activeTab === 'personnel' && (
+            <div className="animate-fade-in">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div className="lg:col-span-4 space-y-4">
+                  <Card className="shadow-sm border">
+                    <CardHeader className="pb-3 border-b">
                       <div className="flex items-center justify-between">
-                        <CollapsibleTrigger asChild>
-                          <div className="flex items-center cursor-pointer">
-                            <CardTitle className="text-sm font-medium">Teacher Settings</CardTitle>
-                            {isSettingsOpen ? (
-                              <ChevronDown className="ml-2 h-4 w-4" />
-                            ) : (
-                              <ChevronRight className="ml-2 h-4 w-4" />
-                            )}
-                          </div>
-                        </CollapsibleTrigger>
+                        <CardTitle className="text-base font-medium">Select Personnel</CardTitle>
+                        <span className="text-xs text-gray-500">{selectedTeachers.length}/{TEACHER_CHIPS.length}</span>
                       </div>
                     </CardHeader>
-                    <CollapsibleContent>
-                      <CardContent>
-                        <div className="mb-4">
-                          <Label htmlFor="control-number" className="text-sm font-medium">
-                            Control position number
-                          </Label>
-                          <Select defaultValue="option-1">
-                            <SelectTrigger className="mt-1">
-                              <SelectValue placeholder="Select option" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="option-1">Option 1</SelectItem>
-                              <SelectItem value="option-2">Option 2</SelectItem>
-                              <SelectItem value="option-3">Option 3</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="min-positions" className="text-sm font-medium">
-                              Min. positions pr. day
-                            </Label>
-                            <Select defaultValue="2">
-                              <SelectTrigger className="mt-1">
-                                <SelectValue placeholder="Select" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {[1, 2, 3, 4, 5].map(i => (
-                                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          
-                          <div>
-                            <Label htmlFor="max-positions" className="text-sm font-medium">
-                              Max. positions pr. day
-                            </Label>
-                            <Select defaultValue="6">
-                              <SelectTrigger className="mt-1">
-                                <SelectValue placeholder="Select" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {[3, 4, 5, 6, 7, 8].map(i => (
-                                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          
-                          <div>
-                            <Label htmlFor="max-location-shifts" className="text-sm font-medium">
-                              Max. location shifts pr. day
-                            </Label>
-                            <Select defaultValue="3">
-                              <SelectTrigger className="mt-1">
-                                <SelectValue placeholder="Select" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {[1, 2, 3, 4, 5].map(i => (
-                                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          
-                          <div>
-                            <Label htmlFor="max-working-time" className="text-sm font-medium">
-                              Max. working time in period
-                            </Label>
-                            <Select defaultValue="8">
-                              <SelectTrigger className="mt-1">
-                                <SelectValue placeholder="Select" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {[6, 7, 8, 9, 10].map(i => (
-                                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          
-                          <div>
-                            <Label htmlFor="max-gap-hours" className="text-sm font-medium">
-                              Max. gap hours pr. week
-                            </Label>
-                            <Select defaultValue="4">
-                              <SelectTrigger className="mt-1">
-                                <SelectValue placeholder="Select" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {[2, 3, 4, 5, 6].map(i => (
-                                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          
-                          <div>
-                            <Label htmlFor="max-consecutive" className="text-sm font-medium">
-                              Max. consecutive gap hours
-                            </Label>
-                            <Select defaultValue="2">
-                              <SelectTrigger className="mt-1">
-                                <SelectValue placeholder="Select" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {[1, 2, 3, 4].map(i => (
-                                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          
-                          <div>
-                            <Label htmlFor="min-consecutive" className="text-sm font-medium">
-                              Min. consecutive gap hours
-                            </Label>
-                            <Select defaultValue="1">
-                              <SelectTrigger className="mt-1">
-                                <SelectValue placeholder="Select" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {[0, 1, 2, 3].map(i => (
-                                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
-                        </div>
-                        
-                        <div className="mt-4 space-y-2">
-                          <div className="flex items-center space-x-2">
-                            <Checkbox id="count-bindings" />
-                            <Label htmlFor="count-bindings" className="text-sm">
-                              Count bindings without classes
-                            </Label>
-                          </div>
-                          
-                          <div className="flex items-center space-x-2">
-                            <Checkbox id="time-every-day" />
-                            <Label htmlFor="time-every-day" className="text-sm">
-                              Time every day
-                            </Label>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </CollapsibleContent>
+                    <CardContent className="pt-3">
+                      <div className="mb-4 relative">
+                        <Search className="absolute left-2.5 top-3 h-4 w-4 text-gray-500" />
+                        <Input
+                          type="text"
+                          placeholder="Search personnel..."
+                          className="pl-8"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                      </div>
+                      <div className="flex flex-wrap gap-2 p-3 border rounded-md mb-4">
+                        <TeacherChips 
+                          teachers={filteredTeachers} 
+                          selectedTeachers={selectedTeachers}
+                          onTeacherClick={handleTeacherClick}
+                          selectable
+                        />
+                      </div>
+                    </CardContent>
                   </Card>
-                </Collapsible>
+                  
+                  <Card className="shadow-sm border">
+                    <CardHeader className="pb-3 border-b">
+                      <CollapsibleTrigger asChild className="w-full">
+                        <div className="flex items-center justify-between cursor-pointer">
+                          <CardTitle className="text-base font-medium">Teacher Settings</CardTitle>
+                          {isSettingsOpen ? (
+                            <ChevronDown className="h-4 w-4 text-gray-500" />
+                          ) : (
+                            <ChevronRight className="h-4 w-4 text-gray-500" />
+                          )}
+                        </div>
+                      </CollapsibleTrigger>
+                    </CardHeader>
+                    
+                    <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+                      <CollapsibleContent>
+                        <CardContent className="pt-3">
+                          <div className="mb-4">
+                            <Label htmlFor="control-number" className="text-sm font-medium mb-2 inline-block">
+                              Control position number
+                            </Label>
+                            <Select defaultValue="option-1">
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select option" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="option-1">Option 1</SelectItem>
+                                <SelectItem value="option-2">Option 2</SelectItem>
+                                <SelectItem value="option-3">Option 3</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                              <Label htmlFor="min-positions" className="text-sm font-medium mb-2 inline-block">
+                                Min. positions pr. day
+                              </Label>
+                              <Select defaultValue="2">
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {[1, 2, 3, 4, 5].map(i => (
+                                    <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="max-positions" className="text-sm font-medium mb-2 inline-block">
+                                Max. positions pr. day
+                              </Label>
+                              <Select defaultValue="6">
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {[3, 4, 5, 6, 7, 8].map(i => (
+                                    <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="max-location-shifts" className="text-sm font-medium mb-2 inline-block">
+                                Max. location shifts pr. day
+                              </Label>
+                              <Select defaultValue="3">
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {[1, 2, 3, 4, 5].map(i => (
+                                    <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="max-working-time" className="text-sm font-medium mb-2 inline-block">
+                                Max. working time in period
+                              </Label>
+                              <Select defaultValue="8">
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {[6, 7, 8, 9, 10].map(i => (
+                                    <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="max-gap-hours" className="text-sm font-medium mb-2 inline-block">
+                                Max. gap hours pr. week
+                              </Label>
+                              <Select defaultValue="4">
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {[2, 3, 4, 5, 6].map(i => (
+                                    <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            
+                            <div>
+                              <Label htmlFor="min-consecutive-gap" className="text-sm font-medium mb-2 inline-block">
+                                Min. consecutive gap hours
+                              </Label>
+                              <Select defaultValue="2">
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {[1, 2, 3, 4].map(i => (
+                                    <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-3">
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="count-bindings" />
+                              <Label htmlFor="count-bindings" className="text-sm">
+                                Count bindings without classes
+                              </Label>
+                            </div>
+                            
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="time-every-day" />
+                              <Label htmlFor="time-every-day" className="text-sm">
+                                Time every day
+                              </Label>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </Card>
+                  
+                  <Card className="shadow-sm border">
+                    <CardHeader className="pb-3 border-b">
+                      <CardTitle className="text-base font-medium">Comment</CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-3">
+                      <Textarea
+                        placeholder="Add a comment..."
+                        className="resize-none"
+                        rows={4}
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
                 
-                <Card>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-sm font-medium">Comment</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Textarea
-                      placeholder="Add a comment..."
-                      className="resize-none"
-                      rows={4}
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-              
-              <div className="col-span-1 lg:col-span-2 space-y-4">
-                <Card>
-                  <CardHeader className="pb-3">
-                    <div className="flex flex-wrap items-center justify-between gap-4">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <Button variant="ghost" size="sm" className="text-gray-500 hover:text-red-600">
-                          <X className="w-4 h-4 mr-1" />
-                          <span className="hidden sm:inline">Can not</span>
-                        </Button>
-                        <Button variant="ghost" size="sm" className="text-gray-500 hover:text-orange-600">
-                          <X className="w-4 h-4 mr-1" />
-                          <span className="hidden sm:inline">Prefer not</span>
-                        </Button>
-                        <Button variant="ghost" size="sm" className="text-gray-500 hover:text-blue-600">
-                          <Check className="w-4 h-4 mr-1" />
-                          <span className="hidden sm:inline">Prefer work</span>
-                        </Button>
-                        <Button variant="ghost" size="sm" className="text-gray-500 hover:text-indigo-600">
-                          <Check className="w-4 h-4 mr-1" />
-                          <span className="hidden sm:inline">Must work</span>
-                        </Button>
+                <div className="lg:col-span-8">
+                  <Card className="shadow-sm border">
+                    <CardHeader className="pb-3 border-b">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex flex-wrap items-center gap-4">
+                          <Button variant="outline" size="sm" className="text-gray-700">
+                            <X className="h-4 w-4 mr-1 text-red-500" />
+                            Can not
+                          </Button>
+                          <Button variant="outline" size="sm" className="text-gray-700">
+                            <X className="h-4 w-4 mr-1 text-orange-500" />
+                            Prefer not
+                          </Button>
+                          <Button variant="outline" size="sm" className="text-gray-700">
+                            <Check className="h-4 w-4 mr-1 text-blue-500" />
+                            Prefer work
+                          </Button>
+                          <Button variant="outline" size="sm" className="text-gray-700">
+                            <Check className="h-4 w-4 mr-1 text-indigo-600" />
+                            Must work
+                          </Button>
+                        </div>
+                        
+                        <div className="flex items-center space-x-2">
+                          <Button variant="outline" size="sm" className="text-gray-700">
+                            <Trash className="h-4 w-4 mr-1" />
+                            Remove
+                          </Button>
+                          <Button variant="outline" size="sm" className="text-gray-700">
+                            <Check className="h-4 w-4 mr-1" />
+                            Select
+                          </Button>
+                        </div>
+                      </div>
+                    </CardHeader>
+
+                    <CardContent className="pt-4">
+                      <div className="flex items-center mb-4">
+                        <div className="flex items-center mr-6">
+                          <ScheduleIndicator type="prefer-work" className="mr-2" />
+                          <span className="text-sm text-gray-700">Prefer work</span>
+                        </div>
+                        <div className="flex items-center">
+                          <ScheduleIndicator type="must-work" className="mr-2" />
+                          <span className="text-sm text-gray-700">Must work</span>
+                        </div>
                       </div>
                       
-                      <div className="flex items-center space-x-2">
-                        <Button variant="ghost" size="sm" className="text-gray-500">
-                          <Trash className="w-4 h-4 mr-1" />
-                          <span className="hidden sm:inline">Remove</span>
-                        </Button>
-                        <Button variant="ghost" size="sm" className="text-gray-500">
-                          <Check className="w-4 h-4 mr-1" />
-                          <span className="hidden sm:inline">Select</span>
-                        </Button>
+                      <div className="overflow-x-auto">
+                        <TimetableGrid />
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center mt-2 mb-4">
-                      <div className="flex items-center mr-6">
-                        <ScheduleIndicator type="prefer-work" className="mr-2" />
-                        <span className="text-sm text-gray-700">Prefer work</span>
-                      </div>
-                      <div className="flex items-center">
-                        <ScheduleIndicator type="must-work" className="mr-2" />
-                        <span className="text-sm text-gray-700">Must work</span>
-                      </div>
-                    </div>
-                    
-                    <div className="overflow-x-auto">
-                      <TimetableGrid className="mt-4" />
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <div className="flex flex-wrap justify-end space-x-0 sm:space-x-3 gap-2 sm:gap-0">
-                  <Button variant="outline">
-                    <X className="w-4 h-4 mr-2" />
-                    Cancel
-                  </Button>
-                  <Button variant="outline" onClick={handleSave}>
-                    <Save className="w-4 h-4 mr-2" />
-                    Save
-                  </Button>
-                  <Button variant="outline" className="text-red-600 hover:bg-red-50">
-                    <Trash className="w-4 h-4 mr-2" />
-                    Delete
-                  </Button>
-                  <Button>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add
-                  </Button>
+                    </CardContent>
+                  </Card>
+                  
+                  <div className="mt-4 flex justify-end space-x-2">
+                    <Button variant="outline">Cancel</Button>
+                    <Button variant="outline" onClick={handleSave}>Save</Button>
+                    <Button variant="outline" className="text-red-600">Delete</Button>
+                    <Button>Add</Button>
+                  </div>
                 </div>
               </div>
             </div>
-          </TabsContent>
+          )}
           
-          {['classes', 'teams', 'subjects', 'rooms', 'rules', 'periods'].map((tab) => (
-            <TabsContent key={tab} value={tab}>
-              <div className="py-10 text-center text-gray-500 bg-white rounded-md border border-dashed">
-                <h3 className="text-lg font-medium capitalize">{tab} management</h3>
-                <p className="mt-2">This feature will be implemented in the next phase.</p>
-                <Button className="mt-4">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add {tab.slice(0, -1)}
-                </Button>
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
+          {activeTab !== 'personnel' && (
+            <div className="py-10 text-center text-gray-500 bg-white rounded-md border border-dashed">
+              <h3 className="text-lg font-medium capitalize">{activeTab} management</h3>
+              <p className="mt-2">This feature will be implemented in the next phase.</p>
+              <Button className="mt-4">
+                <Plus className="w-4 h-4 mr-2" />
+                Add {activeTab.slice(0, -1)}
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
     </Layout>
   );

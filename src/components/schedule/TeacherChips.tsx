@@ -46,10 +46,12 @@ const TeacherChips: React.FC<TeacherChipsProps> = ({
         <div
           key={teacher.id}
           className={cn(
-            "teacher-chip",
+            "inline-flex items-center justify-center rounded-md text-xs font-medium px-2 py-1 m-0.5 transition-all duration-200",
             getSize(),
-            isSelected(teacher.id) && "bg-blue-100 text-blue-800 border border-blue-300",
-            selectable && "cursor-pointer hover:bg-gray-200",
+            isSelected(teacher.id) 
+              ? "bg-blue-100 text-blue-800 border border-blue-300" 
+              : "bg-gray-100 text-gray-800 border border-gray-200",
+            selectable && "cursor-pointer hover:bg-blue-50 hover:border-blue-300",
             !selectable && "cursor-default",
           )}
           onClick={() => selectable && onTeacherClick && onTeacherClick(teacher)}

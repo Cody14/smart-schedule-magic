@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import ScheduleIndicator from './ScheduleIndicator';
@@ -155,7 +156,7 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
       });
     });
     
-    // Add some sample indicators
+    // Add sample data based on the screenshot
     initialData.mon['4'].preferWork = true;
     initialData.mon['5'].preferWork = true;
     initialData.mon['6'].preferWork = true;
@@ -168,9 +169,9 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
     initialData.thu['7'].mustWork = true;
     initialData.thu['8'].mustWork = true;
     
-    // Add sample teachers to some cells
-    initialData.mon['4'].teachers = [TEACHERS[0], TEACHERS[1]];
-    initialData.tue['3'].teachers = [TEACHERS[2], TEACHERS[3], TEACHERS[4]];
+    // Add sample teachers to cells
+    initialData.wed['3'].teachers = [TEACHERS[2], TEACHERS[3], TEACHERS[4]];
+    initialData.tue['4'].teachers = [TEACHERS[0], TEACHERS[1]];
     
     return initialData;
   });
@@ -216,22 +217,22 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
   };
   
   return (
-    <div className={cn("w-full overflow-auto border rounded-md bg-white animate-scale-in", className)}>
+    <div className={cn("w-full overflow-auto border rounded-md bg-white", className)}>
       <table className="w-full border-collapse">
         <thead>
-          <tr className="bg-gray-50">
+          <tr className="bg-gray-100">
             <th className="timetable-header w-12 sm:w-16">#</th>
-            <th className="timetable-header w-20 sm:w-24">Time</th>
+            <th className="timetable-header w-32">Time</th>
             {DAYS.map(day => (
-              <th key={day.id} className="timetable-header">
-                {window.innerWidth > 640 ? day.name : day.name.substring(0, 3)}
+              <th key={day.id} className="timetable-header font-medium">
+                {day.name}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {TIME_SLOTS.map((slot, index) => (
-            <tr key={slot.id} className={index % 2 === 0 ? "bg-gray-50/30" : ""}>
+            <tr key={slot.id} className={index % 2 === 0 ? "bg-gray-50/50" : ""}>
               <td className="timetable-time text-center">{index + 1}</td>
               <td className="timetable-time">{`${slot.start} - ${slot.end}`}</td>
               {DAYS.map(day => (
