@@ -52,9 +52,9 @@ const Personnel = () => {
         
         <div className="p-4">
           {activeTab === 'personnel' ? (
-            <div className="animate-fade-in space-y-4">
+            <div className="animate-fade-in space-y-3">
               {/* Top section with all controls */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <PersonnelSelection
                   searchQuery={searchQuery}
                   setSearchQuery={setSearchQuery}
