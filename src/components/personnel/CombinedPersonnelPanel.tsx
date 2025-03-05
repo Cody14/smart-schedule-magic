@@ -31,10 +31,11 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
 
   return (
     <Card className="shadow-sm border">
-      <CardContent className="p-3 space-y-2">
-        {/* Top row with selection and controls */}
-        <div className="flex flex-wrap gap-2 items-start">
-          <div className="grow min-w-[220px]">
+      <CardContent className="p-3">
+        {/* Main layout container with flexbox */}
+        <div className="flex flex-wrap gap-4">
+          {/* Left side: Teacher selection area - reduced width as per request */}
+          <div className="w-full lg:w-[40%] xl:w-[35%] space-y-2">
             <div className="flex items-center justify-between mb-1">
               <Label className="text-xs font-medium">Select Personnel</Label>
               <span className="text-xs text-gray-500">{selectedTeachers.length}/{teachers.length}</span>
@@ -51,7 +52,7 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
                 />
               </div>
               <Select defaultValue="option-1">
-                <SelectTrigger className="h-7 text-xs w-52">
+                <SelectTrigger className="h-7 text-xs w-48">
                   <SelectValue placeholder="Control position number" />
                 </SelectTrigger>
                 <SelectContent>
@@ -60,7 +61,7 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
                 </SelectContent>
               </Select>
             </div>
-            <div className="mt-2 p-1.5 border rounded-md bg-gray-50 h-16 overflow-y-auto">
+            <div className="p-1.5 border rounded-md bg-gray-50 h-14 overflow-y-auto">
               <TeacherChips 
                 teachers={filteredTeachers} 
                 selectedTeachers={selectedTeachers}
@@ -70,131 +71,138 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
               />
             </div>
           </div>
-          
-          {/* Comment section */}
-          <div className="grow min-w-[220px]">
-            <Label className="text-xs font-medium mb-1 inline-block">Comment</Label>
-            <Textarea
-              placeholder="Add a comment..."
-              className="resize-none h-[70px] text-xs"
-              rows={3}
-            />
-          </div>
-        </div>
-        
-        {/* Settings grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-3 gap-y-1">
-          <div>
-            <Label htmlFor="min-positions" className="text-xs font-medium mb-0.5 inline-block">
-              Min. positions pr. day
-            </Label>
-            <Select defaultValue="2">
-              <SelectTrigger className="h-7 text-xs">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {[1, 2, 3, 4, 5].map(i => (
-                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div>
-            <Label htmlFor="max-positions" className="text-xs font-medium mb-0.5 inline-block">
-              Max. positions pr. day
-            </Label>
-            <Select defaultValue="6">
-              <SelectTrigger className="h-7 text-xs">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {[3, 4, 5, 6, 7, 8].map(i => (
-                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div>
-            <Label htmlFor="max-location-shifts" className="text-xs font-medium mb-0.5 inline-block">
-              Max. location shifts pr. day
-            </Label>
-            <Select defaultValue="3">
-              <SelectTrigger className="h-7 text-xs">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {[1, 2, 3, 4, 5].map(i => (
-                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div>
-            <Label htmlFor="max-working-time" className="text-xs font-medium mb-0.5 inline-block">
-              Max. working time in period
-            </Label>
-            <Select defaultValue="8">
-              <SelectTrigger className="h-7 text-xs">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {[6, 7, 8, 9, 10].map(i => (
-                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div>
-            <Label htmlFor="max-gap-hours" className="text-xs font-medium mb-0.5 inline-block">
-              Max. gap hours pr. week
-            </Label>
-            <Select defaultValue="4">
-              <SelectTrigger className="h-7 text-xs">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {[2, 3, 4, 5, 6].map(i => (
-                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div>
-            <Label htmlFor="min-consecutive-gap" className="text-xs font-medium mb-0.5 inline-block">
-              Min. consecutive gap hours
-            </Label>
-            <Select defaultValue="2">
-              <SelectTrigger className="h-7 text-xs">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {[1, 2, 3, 4].map(i => (
-                  <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        
-        {/* Checkboxes */}
-        <div className="flex items-center gap-6">
-          <div className="flex items-center space-x-2">
-            <Checkbox id="count-bindings" className="h-3.5 w-3.5" />
-            <Label htmlFor="count-bindings" className="text-xs">
-              Count bindings without classes
-            </Label>
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            <Checkbox id="time-every-day" className="h-3.5 w-3.5" />
-            <Label htmlFor="time-every-day" className="text-xs">
-              Time every day
-            </Label>
+
+          {/* Middle & Right: Settings grid and comment section */}
+          <div className="w-full lg:w-[58%] xl:w-[63%]">
+            <div className="flex flex-wrap gap-4">
+              {/* Settings grid */}
+              <div className="w-full lg:w-[62%] space-y-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-3 gap-y-1">
+                  <div>
+                    <Label htmlFor="min-positions" className="text-xs font-medium mb-0.5 inline-block">
+                      Min. positions pr. day
+                    </Label>
+                    <Select defaultValue="2">
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[1, 2, 3, 4, 5].map(i => (
+                          <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="max-positions" className="text-xs font-medium mb-0.5 inline-block">
+                      Max. positions pr. day
+                    </Label>
+                    <Select defaultValue="6">
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[3, 4, 5, 6, 7, 8].map(i => (
+                          <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="max-location-shifts" className="text-xs font-medium mb-0.5 inline-block">
+                      Max. location shifts pr. day
+                    </Label>
+                    <Select defaultValue="3">
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[1, 2, 3, 4, 5].map(i => (
+                          <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="max-working-time" className="text-xs font-medium mb-0.5 inline-block">
+                      Max. working time in period
+                    </Label>
+                    <Select defaultValue="8">
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[6, 7, 8, 9, 10].map(i => (
+                          <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="max-gap-hours" className="text-xs font-medium mb-0.5 inline-block">
+                      Max. gap hours pr. week
+                    </Label>
+                    <Select defaultValue="4">
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[2, 3, 4, 5, 6].map(i => (
+                          <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="min-consecutive-gap" className="text-xs font-medium mb-0.5 inline-block">
+                      Min. consecutive gap hours
+                    </Label>
+                    <Select defaultValue="2">
+                      <SelectTrigger className="h-7 text-xs">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[1, 2, 3, 4].map(i => (
+                          <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                
+                {/* Checkboxes */}
+                <div className="flex items-center gap-6">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="count-bindings" className="h-3.5 w-3.5" />
+                    <Label htmlFor="count-bindings" className="text-xs">
+                      Count bindings without classes
+                    </Label>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="time-every-day" className="h-3.5 w-3.5" />
+                    <Label htmlFor="time-every-day" className="text-xs">
+                      Time every day
+                    </Label>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Comment section - positioned on the right */}
+              <div className="w-full lg:w-[35%]">
+                <Label className="text-xs font-medium mb-1 inline-block">Comment</Label>
+                <Textarea
+                  placeholder="Add a comment..."
+                  className="resize-none h-[95px] text-xs"
+                  rows={4}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </CardContent>
