@@ -61,7 +61,7 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
                 </SelectContent>
               </Select>
             </div>
-            <div className="p-1.5 border rounded-md bg-gray-50 h-14 overflow-y-auto">
+            <div className="p-1.5 border rounded-md bg-gray-50 h-[105px]">
               <TeacherChips 
                 teachers={filteredTeachers} 
                 selectedTeachers={selectedTeachers}
@@ -198,7 +198,7 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
                 <Label className="text-xs font-medium mb-1 inline-block">Comment</Label>
                 <Textarea
                   placeholder="Add a comment..."
-                  className="resize-none h-[95px] text-xs"
+                  className="resize-none h-[140px] text-xs"
                   rows={4}
                 />
               </div>
