@@ -6,9 +6,7 @@ import { toast } from '@/components/ui/use-toast';
 
 // Import our components
 import PersonnelTabs from '@/components/personnel/PersonnelTabs';
-import PersonnelSelection from '@/components/personnel/PersonnelSelection';
-import TeacherSettings from '@/components/personnel/TeacherSettings';
-import CommentSection from '@/components/personnel/CommentSection';
+import CombinedPersonnelPanel from '@/components/personnel/CombinedPersonnelPanel';
 import TimetableControls from '@/components/personnel/TimetableControls';
 import ActionButtons from '@/components/personnel/ActionButtons';
 import TabContent from '@/components/personnel/TabContent';
@@ -18,7 +16,6 @@ const Personnel = () => {
   const [selectedTeachers, setSelectedTeachers] = useState<string[]>(['bc', 'cf', 'em', 'hu', 'jm', 'lc', 'lp']);
   const [activeTab, setActiveTab] = useState<string>('personnel');
   const [searchQuery, setSearchQuery] = useState('');
-  const [isSettingsOpen, setIsSettingsOpen] = useState(true);
   
   const handleTeacherClick = (teacher: TeacherChip) => {
     setSelectedTeachers(prev => 
@@ -50,26 +47,17 @@ const Personnel = () => {
           tabItems={TAB_ITEMS}
         />
         
-        <div className="p-4">
+        <div className="p-3">
           {activeTab === 'personnel' ? (
-            <div className="animate-fade-in space-y-3">
-              {/* Top section with all controls */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <PersonnelSelection
-                  searchQuery={searchQuery}
-                  setSearchQuery={setSearchQuery}
-                  selectedTeachers={selectedTeachers}
-                  handleTeacherClick={handleTeacherClick}
-                  teachers={TEACHER_CHIPS}
-                />
-                
-                <TeacherSettings
-                  isSettingsOpen={isSettingsOpen}
-                  setIsSettingsOpen={setIsSettingsOpen}
-                />
-                
-                <CommentSection />
-              </div>
+            <div className="animate-fade-in space-y-2">
+              {/* Combined personnel panel */}
+              <CombinedPersonnelPanel
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                selectedTeachers={selectedTeachers}
+                handleTeacherClick={handleTeacherClick}
+                teachers={TEACHER_CHIPS}
+              />
               
               {/* Timetable section */}
               <TimetableControls />
