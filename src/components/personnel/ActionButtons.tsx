@@ -8,11 +8,11 @@ interface ActionButtonsProps {
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({ onSave }) => {
   return (
-    <div className="mt-3 flex justify-end space-x-2">
-      <Button variant="outline" size="sm">Cancel</Button>
-      <Button variant="outline" size="sm" onClick={onSave}>Save</Button>
-      <Button variant="outline" size="sm" className="text-red-600">Delete</Button>
-      <Button size="sm">Add</Button>
+    <div className="mt-2 flex justify-end space-x-2">
+      <Button variant="outline" size="sm" className="text-xs h-7">Cancel</Button>
+      <Button variant="outline" size="sm" className="text-xs h-7" onClick={onSave}>Save</Button>
+      <Button variant="outline" size="sm" className="text-xs h-7 text-red-600">Delete</Button>
+      <Button size="sm" className="text-xs h-7">Add</Button>
     </div>
   );
 };

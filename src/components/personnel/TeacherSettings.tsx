@@ -19,7 +19,7 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
   return (
     <Card className="shadow-sm border h-full">
       <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
-        <CardHeader className="pb-2 pt-3 border-b">
+        <CardHeader className="pb-1 pt-2 border-b">
           <CollapsibleTrigger asChild className="w-full">
             <div className="flex items-center justify-between cursor-pointer">
               <CardTitle className="text-base font-medium">Teacher Settings</CardTitle>
@@ -33,13 +33,13 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
         </CardHeader>
         
         <CollapsibleContent>
-          <CardContent className="pt-2 pb-2 space-y-2">
+          <CardContent className="pt-2 pb-2 space-y-1">
             <div>
-              <Label htmlFor="control-number" className="text-sm font-medium mb-1 inline-block">
+              <Label htmlFor="control-number" className="text-xs font-medium mb-0.5 inline-block">
                 Control position number
               </Label>
               <Select defaultValue="option-1">
-                <SelectTrigger className="h-8">
+                <SelectTrigger className="h-7 text-xs">
                   <SelectValue placeholder="Select option" />
                 </SelectTrigger>
                 <SelectContent>
@@ -50,13 +50,13 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </Select>
             </div>
             
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+            <div className="grid grid-cols-2 gap-x-3 gap-y-1">
               <div>
-                <Label htmlFor="min-positions" className="text-sm font-medium mb-1 inline-block">
+                <Label htmlFor="min-positions" className="text-xs font-medium mb-0.5 inline-block">
                   Min. positions pr. day
                 </Label>
                 <Select defaultValue="2">
-                  <SelectTrigger className="h-8">
+                  <SelectTrigger className="h-7 text-xs">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
@@ -68,11 +68,11 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="max-positions" className="text-sm font-medium mb-1 inline-block">
+                <Label htmlFor="max-positions" className="text-xs font-medium mb-0.5 inline-block">
                   Max. positions pr. day
                 </Label>
                 <Select defaultValue="6">
-                  <SelectTrigger className="h-8">
+                  <SelectTrigger className="h-7 text-xs">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
@@ -84,11 +84,11 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="max-location-shifts" className="text-sm font-medium mb-1 inline-block">
+                <Label htmlFor="max-location-shifts" className="text-xs font-medium mb-0.5 inline-block">
                   Max. location shifts pr. day
                 </Label>
                 <Select defaultValue="3">
-                  <SelectTrigger className="h-8">
+                  <SelectTrigger className="h-7 text-xs">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
@@ -100,11 +100,11 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="max-working-time" className="text-sm font-medium mb-1 inline-block">
+                <Label htmlFor="max-working-time" className="text-xs font-medium mb-0.5 inline-block">
                   Max. working time in period
                 </Label>
                 <Select defaultValue="8">
-                  <SelectTrigger className="h-8">
+                  <SelectTrigger className="h-7 text-xs">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
@@ -116,11 +116,11 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="max-gap-hours" className="text-sm font-medium mb-1 inline-block">
+                <Label htmlFor="max-gap-hours" className="text-xs font-medium mb-0.5 inline-block">
                   Max. gap hours pr. week
                 </Label>
                 <Select defaultValue="4">
-                  <SelectTrigger className="h-8">
+                  <SelectTrigger className="h-7 text-xs">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
@@ -132,11 +132,11 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="min-consecutive-gap" className="text-sm font-medium mb-1 inline-block">
+                <Label htmlFor="min-consecutive-gap" className="text-xs font-medium mb-0.5 inline-block">
                   Min. consecutive gap hours
                 </Label>
                 <Select defaultValue="2">
-                  <SelectTrigger className="h-8">
+                  <SelectTrigger className="h-7 text-xs">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
@@ -148,17 +148,17 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
             </div>
             
-            <div className="flex flex-col space-y-1 mt-1">
+            <div className="flex flex-col space-y-0.5 mt-1">
               <div className="flex items-center space-x-2">
-                <Checkbox id="count-bindings" />
-                <Label htmlFor="count-bindings" className="text-sm">
+                <Checkbox id="count-bindings" className="h-3 w-3" />
+                <Label htmlFor="count-bindings" className="text-xs">
                   Count bindings without classes
                 </Label>
               </div>
               
               <div className="flex items-center space-x-2">
-                <Checkbox id="time-every-day" />
-                <Label htmlFor="time-every-day" className="text-sm">
+                <Checkbox id="time-every-day" className="h-3 w-3" />
+                <Label htmlFor="time-every-day" className="text-xs">
                   Time every day
                 </Label>
               </div>
