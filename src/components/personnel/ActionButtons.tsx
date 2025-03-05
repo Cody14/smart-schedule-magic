@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { toast } from '@/components/ui/use-toast';
 
 interface ActionButtonsProps {
   onSave: () => void;
@@ -10,10 +9,10 @@ interface ActionButtonsProps {
 const ActionButtons: React.FC<ActionButtonsProps> = ({ onSave }) => {
   return (
     <div className="mt-4 flex justify-end space-x-2">
-      <Button variant="outline">Cancel</Button>
-      <Button variant="outline" onClick={onSave}>Save</Button>
-      <Button variant="outline" className="text-red-600">Delete</Button>
-      <Button>Add</Button>
+      <Button variant="outline" size="sm">Cancel</Button>
+      <Button variant="outline" size="sm" onClick={onSave}>Save</Button>
+      <Button variant="outline" size="sm" className="text-red-600">Delete</Button>
+      <Button size="sm">Add</Button>
     </div>
   );
 };

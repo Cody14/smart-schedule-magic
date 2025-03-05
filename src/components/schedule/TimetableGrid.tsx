@@ -126,15 +126,17 @@ const TEACHERS: TeacherChip[] = [
   { id: 'kp', initials: 'KP', name: 'Kevin Phillips' },
 ];
 
+interface CellData {
+  teachers: TeacherChip[];
+  preferWork: boolean;
+  mustWork: boolean;
+  cannotWork: boolean; 
+  preferNot: boolean;
+}
+
 interface ScheduleData {
   [dayId: string]: {
-    [timeSlotId: string]: {
-      teachers: TeacherChip[];
-      preferWork: boolean;
-      mustWork: boolean;
-      cannotWork: boolean; 
-      preferNot: boolean;
-    };
+    [timeSlotId: string]: CellData;
   };
 }
 
@@ -195,7 +197,20 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
       
       // Set the new indicator if not null
       if (indicator) {
-        newData[day.id][timeSlot.id][indicator.replace('-', '') as keyof typeof newData[string][string]] = true;
+        switch(indicator) {
+          case 'prefer-work':
+            newData[day.id][timeSlot.id].preferWork = true;
+            break;
+          case 'must-work':
+            newData[day.id][timeSlot.id].mustWork = true;
+            break;
+          case 'cannot-work':
+            newData[day.id][timeSlot.id].cannotWork = true;
+            break;
+          case 'prefer-not':
+            newData[day.id][timeSlot.id].preferNot = true;
+            break;
+        }
         
         // Show a toast notification
         const indicatorLabels = {

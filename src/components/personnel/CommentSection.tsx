@@ -5,15 +5,15 @@ import { Textarea } from '@/components/ui/textarea';
 
 const CommentSection: React.FC = () => {
   return (
-    <Card className="shadow-sm border">
-      <CardHeader className="pb-3 border-b">
+    <Card className="shadow-sm border h-full">
+      <CardHeader className="pb-2 pt-4 border-b">
         <CardTitle className="text-base font-medium">Comment</CardTitle>
       </CardHeader>
-      <CardContent className="pt-3">
+      <CardContent className="pt-3 pb-2">
         <Textarea
           placeholder="Add a comment..."
           className="resize-none"
-          rows={4}
+          rows={3}
         />
       </CardContent>
     </Card>

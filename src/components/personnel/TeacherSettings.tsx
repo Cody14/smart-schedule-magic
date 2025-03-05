@@ -17,9 +17,9 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
   setIsSettingsOpen,
 }) => {
   return (
-    <Card className="shadow-sm border">
+    <Card className="shadow-sm border h-full">
       <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
-        <CardHeader className="pb-3 border-b">
+        <CardHeader className="pb-2 pt-4 border-b">
           <CollapsibleTrigger asChild className="w-full">
             <div className="flex items-center justify-between cursor-pointer">
               <CardTitle className="text-base font-medium">Teacher Settings</CardTitle>
@@ -33,9 +33,9 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
         </CardHeader>
         
         <CollapsibleContent>
-          <CardContent className="pt-3">
-            <div className="mb-4">
-              <Label htmlFor="control-number" className="text-sm font-medium mb-2 inline-block">
+          <CardContent className="pt-3 pb-2 space-y-3">
+            <div>
+              <Label htmlFor="control-number" className="text-sm font-medium mb-1 inline-block">
                 Control position number
               </Label>
               <Select defaultValue="option-1">
@@ -50,9 +50,9 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </Select>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-3">
               <div>
-                <Label htmlFor="min-positions" className="text-sm font-medium mb-2 inline-block">
+                <Label htmlFor="min-positions" className="text-sm font-medium mb-1 inline-block">
                   Min. positions pr. day
                 </Label>
                 <Select defaultValue="2">
@@ -68,7 +68,7 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="max-positions" className="text-sm font-medium mb-2 inline-block">
+                <Label htmlFor="max-positions" className="text-sm font-medium mb-1 inline-block">
                   Max. positions pr. day
                 </Label>
                 <Select defaultValue="6">
@@ -84,7 +84,7 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="max-location-shifts" className="text-sm font-medium mb-2 inline-block">
+                <Label htmlFor="max-location-shifts" className="text-sm font-medium mb-1 inline-block">
                   Max. location shifts pr. day
                 </Label>
                 <Select defaultValue="3">
@@ -100,7 +100,7 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="max-working-time" className="text-sm font-medium mb-2 inline-block">
+                <Label htmlFor="max-working-time" className="text-sm font-medium mb-1 inline-block">
                   Max. working time in period
                 </Label>
                 <Select defaultValue="8">
@@ -116,7 +116,7 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="max-gap-hours" className="text-sm font-medium mb-2 inline-block">
+                <Label htmlFor="max-gap-hours" className="text-sm font-medium mb-1 inline-block">
                   Max. gap hours pr. week
                 </Label>
                 <Select defaultValue="4">
@@ -132,7 +132,7 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
               
               <div>
-                <Label htmlFor="min-consecutive-gap" className="text-sm font-medium mb-2 inline-block">
+                <Label htmlFor="min-consecutive-gap" className="text-sm font-medium mb-1 inline-block">
                   Min. consecutive gap hours
                 </Label>
                 <Select defaultValue="2">
@@ -148,7 +148,7 @@ const TeacherSettings: React.FC<TeacherSettingsProps> = ({
               </div>
             </div>
             
-            <div className="space-y-3">
+            <div className="flex flex-col space-y-2">
               <div className="flex items-center space-x-2">
                 <Checkbox id="count-bindings" />
                 <Label htmlFor="count-bindings" className="text-sm">
