@@ -61,7 +61,8 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
                 </SelectContent>
               </Select>
             </div>
-            <div className="p-1.5 border rounded-md bg-gray-50 h-[105px]">
+            {/* Increased height from 105px to match the red mark in the screenshot, removed overflow/scrollbar */}
+            <div className="p-1.5 border rounded-md bg-gray-50 h-[200px]">
               <TeacherChips 
                 teachers={filteredTeachers} 
                 selectedTeachers={selectedTeachers}
@@ -193,12 +194,12 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
                 </div>
               </div>
               
-              {/* Comment section - positioned on the right */}
+              {/* Comment section - positioned on the right, height increased to match the settings grid */}
               <div className="w-full lg:w-[35%]">
                 <Label className="text-xs font-medium mb-1 inline-block">Comment</Label>
                 <Textarea
                   placeholder="Add a comment..."
-                  className="resize-none h-[140px] text-xs"
+                  className="resize-none h-[200px] text-xs"
                   rows={4}
                 />
               </div>
