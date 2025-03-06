@@ -50,16 +50,17 @@ const Index = () => {
             <Button 
               size="lg" 
               className="bg-white text-blue-700 hover:bg-blue-50 border border-transparent"
-              onClick={() => navigate('/personnel')}
+              onClick={() => navigate('/login')}
             >
-              Get Started
+              Login
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
               className="text-white border-white hover:bg-white/10"
+              onClick={() => navigate('/dashboard')}
             >
-              Learn More
+              View Demo
             </Button>
           </div>
         </div>
@@ -77,45 +78,59 @@ const Index = () => {
           </p>
         </div>
         
+        {/* Feature cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-in">
-          <FeatureCard 
-            icon={<Users className="w-10 h-10" />}
-            title="Personnel Management"
-            description="Efficiently manage teacher profiles, availability, and scheduling preferences."
-            to="/personnel"
-          />
-          <FeatureCard 
-            icon={<School className="w-10 h-10" />}
-            title="Class Management"
-            description="Organize and maintain class information, schedules, and resource requirements."
-            to="/classes"
-          />
-          <FeatureCard 
-            icon={<Calendar className="w-10 h-10" />}
-            title="Period Management"
-            description="Define class time slots and periods to create consistent scheduling structures."
-            to="/periods"
-          />
-          <FeatureCard 
-            icon={<BookOpen className="w-10 h-10" />}
-            title="Subject Management"
-            description="Track subjects, teachers qualified to teach them, and scheduling constraints."
-            to="/subjects"
-          />
-          <FeatureCard 
-            icon={<Home className="w-10 h-10" />}
-            title="Room Management"
-            description="Allocate physical spaces optimally based on class requirements and availability."
-            to="/rooms"
-          />
-          <FeatureCard 
-            icon={<Settings className="w-10 h-10" />}
-            title="Rules & Settings"
-            description="Create custom scheduling rules and constraints to meet your institution's needs."
-            to="/rules"
-          />
+          {[
+            {
+              icon: <Users className="w-10 h-10" />,
+              title: "Personnel Management",
+              description: "Efficiently manage teacher profiles, availability, and scheduling preferences.",
+              to: "/personnel"
+            },
+            {
+              icon: <School className="w-10 h-10" />,
+              title: "Class Management",
+              description: "Organize and maintain class information, schedules, and resource requirements.",
+              to: "/classes"
+            },
+            {
+              icon: <Calendar className="w-10 h-10" />,
+              title: "Period Management",
+              description: "Define class time slots and periods to create consistent scheduling structures.",
+              to: "/periods"
+            },
+            {
+              icon: <BookOpen className="w-10 h-10" />,
+              title: "Subject Management",
+              description: "Track subjects, teachers qualified to teach them, and scheduling constraints.",
+              to: "/subjects"
+            },
+            {
+              icon: <Home className="w-10 h-10" />,
+              title: "Room Management",
+              description: "Allocate physical spaces optimally based on class requirements and availability.",
+              to: "/rooms"
+            },
+            {
+              icon: <Settings className="w-10 h-10" />,
+              title: "Rules & Settings",
+              description: "Create custom scheduling rules and constraints to meet your institution's needs.",
+              to: "/rules"
+            }
+          ].map((feature, index) => (
+            <div 
+              key={index}
+              className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+              onClick={() => navigate(feature.to)}
+            >
+              <div className="text-blue-600 mb-4">{feature.icon}</div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">{feature.title}</h3>
+              <p className="text-gray-600 text-sm">{feature.description}</p>
+            </div>
+          ))}
         </div>
         
+        {/* CTA Section */}
         <div className="mt-16 bg-white border rounded-xl p-8 shadow-sm animate-scale-in">
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 mb-6 md:mb-0 md:pr-8">
@@ -153,9 +168,9 @@ const Index = () => {
                 </p>
                 <Button 
                   className="w-full"
-                  onClick={() => navigate('/personnel')}
+                  onClick={() => navigate('/login')}
                 >
-                  Start Creating Timetables
+                  Sign Up Now
                 </Button>
               </div>
             </div>
