@@ -1,16 +1,14 @@
 
 import React from 'react';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
 const CommentSection: React.FC = () => {
   return (
-    <div className="w-full lg:w-[35%]">
-      <Label className="text-xs font-medium mb-1 inline-block">Comment</Label>
+    <div className="bg-gray-50 p-4 rounded-lg flex-1">
+      <div className="text-sm font-medium mb-2">Comment</div>
       <Textarea
         placeholder="Add a comment..."
-        className="resize-none h-[130px] text-xs"
-        rows={4}
+        className="resize-none h-[200px] border border-gray-300"
       />
     </div>
   );

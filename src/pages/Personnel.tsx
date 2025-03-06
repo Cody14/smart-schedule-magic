@@ -13,7 +13,7 @@ import TabContent from '@/components/personnel/TabContent';
 import { TEACHER_CHIPS, TAB_ITEMS } from '@/components/personnel/PersonnelData';
 
 const Personnel = () => {
-  const [selectedTeachers, setSelectedTeachers] = useState<string[]>(['bc', 'cf', 'em', 'hu', 'jm', 'lc', 'lp']);
+  const [selectedTeachers, setSelectedTeachers] = useState<string[]>(['bc', 'cf', 'em', 'hu']);
   const [activeTab, setActiveTab] = useState<string>('personnel');
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -47,9 +47,9 @@ const Personnel = () => {
           tabItems={TAB_ITEMS}
         />
         
-        <div className="p-3">
+        <div className="bg-gray-100">
           {activeTab === 'personnel' ? (
-            <div className="animate-fade-in space-y-2">
+            <div className="animate-fade-in">
               {/* Combined personnel panel */}
               <CombinedPersonnelPanel
                 searchQuery={searchQuery}
@@ -60,9 +60,13 @@ const Personnel = () => {
               />
               
               {/* Timetable section */}
-              <TimetableControls />
+              <div className="p-5 pt-0">
+                <TimetableControls />
+              </div>
               
-              <ActionButtons onSave={handleSave} />
+              <div className="p-5 pt-0">
+                <ActionButtons onSave={handleSave} />
+              </div>
             </div>
           ) : (
             <TabContent tabName={activeTab} />

@@ -1,51 +1,45 @@
 
 import React from 'react';
 import { X, Check, Trash } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import TimetableGrid from '@/components/schedule/TimetableGrid';
 
 const TimetableControls: React.FC = () => {
   return (
-    <Card className="shadow-sm border">
-      <CardHeader className="pb-3 border-b">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex flex-wrap items-center gap-2">
-            <Button variant="outline" size="sm" className="text-gray-700 h-8">
-              <X className="h-4 w-4 mr-1 text-red-500" />
-              Can not
-            </Button>
-            <Button variant="outline" size="sm" className="text-gray-700 h-8">
-              <X className="h-4 w-4 mr-1 text-orange-500" />
-              Prefer not
-            </Button>
-            <Button variant="outline" size="sm" className="text-gray-700 h-8">
-              <Check className="h-4 w-4 mr-1 text-blue-500" />
-              Prefer work
-            </Button>
-            <Button variant="outline" size="sm" className="text-gray-700 h-8">
-              <Check className="h-4 w-4 mr-1 text-indigo-600" />
-              Must work
-            </Button>
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm" className="text-gray-700 h-8">
-              <Trash className="h-4 w-4 mr-1" />
-              Remove
-            </Button>
-            <Button variant="outline" size="sm" className="text-gray-700 h-8">
-              <Check className="h-4 w-4 mr-1" />
-              Select
-            </Button>
-          </div>
+    <div className="bg-white rounded-lg border border-gray-200 mt-4">
+      <div className="p-2 flex flex-wrap justify-between border-b">
+        <div className="flex flex-wrap items-center gap-2">
+          <button className="flex items-center gap-1 px-2 py-1 rounded text-sm">
+            <X className="h-4 w-4 text-red-500" />
+            <span>Can not</span>
+          </button>
+          <button className="flex items-center gap-1 px-2 py-1 rounded text-sm">
+            <X className="h-4 w-4 text-orange-500" />
+            <span>Prefer not</span>
+          </button>
+          <button className="flex items-center gap-1 px-2 py-1 rounded text-sm">
+            <Check className="h-4 w-4 text-indigo-600" />
+            <span>Prefer work</span>
+          </button>
+          <button className="flex items-center gap-1 px-2 py-1 rounded text-sm">
+            <Check className="h-4 w-4 text-indigo-800" />
+            <span>Must work</span>
+          </button>
         </div>
-      </CardHeader>
+        
+        <div className="flex items-center space-x-2">
+          <button className="px-2 py-1 rounded text-sm hover:bg-gray-100">
+            <span>remove</span>
+          </button>
+          <button className="px-2 py-1 rounded text-sm hover:bg-gray-100">
+            <span>Select</span>
+          </button>
+        </div>
+      </div>
 
-      <CardContent className="pt-4">
+      <div className="p-0">
         <TimetableGrid />
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import ScheduleIndicator from './ScheduleIndicator';
@@ -58,31 +57,30 @@ const TimetableCell: React.FC<TimetableCellProps> = ({
     }
   };
   
+  const getIndicatorElement = () => {
+    if (preferWork) return <div className="w-6 h-6 flex items-center justify-center rounded-full"><div className="text-indigo-600">●</div></div>;
+    if (mustWork) return <div className="w-6 h-6 flex items-center justify-center rounded-full"><div className="text-indigo-800">✓</div></div>;
+    if (cannotWork) return <div className="w-6 h-6 flex items-center justify-center rounded-full"><div className="text-red-500">✕</div></div>;
+    if (preferNot) return <div className="w-6 h-6 flex items-center justify-center rounded-full"><div className="text-orange-500">⊘</div></div>;
+    return null;
+  };
+  
   return (
     <div 
       className={cn(
-        "timetable-cell group",
-        (preferWork || mustWork || cannotWork || preferNot) && "relative",
+        "border p-2 h-16 cursor-pointer",
         cannotWork && "bg-red-50",
         preferNot && "bg-orange-50",
-        preferWork && "bg-blue-50",
-        mustWork && "bg-indigo-50"
+        preferWork && "bg-indigo-50",
+        mustWork && "bg-indigo-100"
       )}
       onClick={handleCellClick}
     >
+      {getIndicatorElement()}
       <TeacherChips 
         teachers={teachers} 
         size="sm"
       />
-      
-      {(preferWork || mustWork || cannotWork || preferNot) && (
-        <div className="absolute bottom-2 right-2 transition-transform transform group-hover:scale-110">
-          {preferWork && <ScheduleIndicator type="prefer-work" size="sm" />}
-          {mustWork && <ScheduleIndicator type="must-work" size="sm" />}
-          {cannotWork && <ScheduleIndicator type="cannot-work" size="sm" />}
-          {preferNot && <ScheduleIndicator type="prefer-not" size="sm" />}
-        </div>
-      )}
     </div>
   );
 };
@@ -110,7 +108,6 @@ const TIME_SLOTS: TimeSlot[] = [
   { id: '8', start: '15:00', end: '15:45' },
 ];
 
-// Mocked teacher data
 const TEACHERS: TeacherChip[] = [
   { id: 'bc', initials: 'BC', name: 'Bob Chen' },
   { id: 'cf', initials: 'CF', name: 'Catherine Fox' },
@@ -142,7 +139,6 @@ interface ScheduleData {
 
 const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
   const [scheduleData, setScheduleData] = useState<ScheduleData>(() => {
-    // Initialize with sample data
     const initialData: ScheduleData = {};
     
     DAYS.forEach(day => {
@@ -158,7 +154,6 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
       });
     });
     
-    // Add sample data based on the screenshot
     initialData.mon['4'].preferWork = true;
     initialData.mon['5'].preferWork = true;
     initialData.mon['6'].preferWork = true;
@@ -171,7 +166,6 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
     initialData.thu['7'].mustWork = true;
     initialData.thu['8'].mustWork = true;
     
-    // Add sample teachers to cells
     initialData.wed['3'].teachers = [TEACHERS[2], TEACHERS[3], TEACHERS[4]];
     initialData.tue['4'].teachers = [TEACHERS[0], TEACHERS[1]];
     
@@ -186,7 +180,6 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
     setScheduleData(prev => {
       const newData = { ...prev };
       
-      // Reset all indicators
       newData[day.id][timeSlot.id] = {
         ...newData[day.id][timeSlot.id],
         preferWork: false,
@@ -195,7 +188,6 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
         preferNot: false,
       };
       
-      // Set the new indicator if not null
       if (indicator) {
         switch(indicator) {
           case 'prefer-work':
@@ -212,7 +204,6 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
             break;
         }
         
-        // Show a toast notification
         const indicatorLabels = {
           'prefer-work': 'Prefer work',
           'must-work': 'Must work',
@@ -235,11 +226,11 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
     <div className={cn("w-full overflow-auto border rounded-md bg-white", className)}>
       <table className="w-full border-collapse">
         <thead>
-          <tr className="bg-gray-100">
-            <th className="timetable-header w-12 sm:w-16">#</th>
-            <th className="timetable-header w-32">Time</th>
+          <tr className="bg-gray-50">
+            <th className="border p-2 text-left font-medium w-10">#</th>
+            <th className="border p-2 text-left font-medium w-32">Time</th>
             {DAYS.map(day => (
-              <th key={day.id} className="timetable-header font-medium">
+              <th key={day.id} className="border p-2 text-left font-medium">
                 {day.name}
               </th>
             ))}
@@ -247,9 +238,9 @@ const TimetableGrid: React.FC<TimetableGridProps> = ({ className }) => {
         </thead>
         <tbody>
           {TIME_SLOTS.map((slot, index) => (
-            <tr key={slot.id} className={index % 2 === 0 ? "bg-gray-50/50" : ""}>
-              <td className="timetable-time text-center">{index + 1}</td>
-              <td className="timetable-time">{`${slot.start} - ${slot.end}`}</td>
+            <tr key={slot.id}>
+              <td className="border p-2 text-center">{index + 1}</td>
+              <td className="border p-2">{`${slot.start} - ${slot.end}`}</td>
               {DAYS.map(day => (
                 <td key={`${day.id}-${slot.id}`} className="p-0">
                   <TimetableCell 

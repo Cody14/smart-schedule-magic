@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import { TeacherChip } from '@/components/schedule/TeacherChips';
 import TeacherSelectionPanel from './TeacherSelectionPanel';
 import SettingsGrid from './SettingsGrid';
@@ -22,32 +21,24 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
   teachers,
 }) => {
   return (
-    <Card className="shadow-sm border">
-      <CardContent className="p-3">
-        {/* Main layout container with flexbox */}
-        <div className="flex flex-wrap gap-4">
-          {/* Left side: Teacher selection area */}
-          <TeacherSelectionPanel
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            selectedTeachers={selectedTeachers}
-            handleTeacherClick={handleTeacherClick}
-            teachers={teachers}
-          />
+    <div className="p-5 bg-gray-100">
+      <div className="flex flex-col lg:flex-row gap-5">
+        {/* Left side: Teacher selection area */}
+        <TeacherSelectionPanel
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedTeachers={selectedTeachers}
+          handleTeacherClick={handleTeacherClick}
+          teachers={teachers}
+        />
 
-          {/* Middle & Right: Settings grid and comment section */}
-          <div className="w-full lg:w-[58%] xl:w-[63%]">
-            <div className="flex flex-wrap gap-4">
-              {/* Settings grid */}
-              <SettingsGrid />
-              
-              {/* Comment section */}
-              <CommentSection />
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        {/* Settings grid */}
+        <SettingsGrid />
+          
+        {/* Comment section */}
+        <CommentSection />
+      </div>
+    </div>
   );
 };
 

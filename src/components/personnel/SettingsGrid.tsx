@@ -1,123 +1,85 @@
 
 import React from 'react';
-import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const SettingsGrid: React.FC = () => {
   return (
-    <div className="w-full lg:w-[62%] space-y-1">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-3 gap-y-1">
-        <div>
-          <Label htmlFor="min-positions" className="text-xs font-medium mb-0.5 inline-block">
-            Min. positions pr. day
-          </Label>
-          <Select defaultValue="2">
-            <SelectTrigger className="h-7 text-xs">
-              <SelectValue placeholder="Select" />
-            </SelectTrigger>
-            <SelectContent>
-              {[1, 2, 3, 4, 5].map(i => (
-                <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+    <div className="bg-gray-50 p-4 rounded-lg flex-1">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <label className="block text-sm">Min. positions pr. day</label>
+          <select className="w-full border border-gray-300 rounded p-2 bg-white text-sm">
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
         </div>
         
-        <div>
-          <Label htmlFor="max-positions" className="text-xs font-medium mb-0.5 inline-block">
-            Max. positions pr. day
-          </Label>
-          <Select defaultValue="6">
-            <SelectTrigger className="h-7 text-xs">
-              <SelectValue placeholder="Select" />
-            </SelectTrigger>
-            <SelectContent>
-              {[3, 4, 5, 6, 7, 8].map(i => (
-                <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="space-y-2">
+          <label className="block text-sm">Max. location shifts pr. day</label>
+          <select className="w-full border border-gray-300 rounded p-2 bg-white text-sm">
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
         </div>
         
-        <div>
-          <Label htmlFor="max-location-shifts" className="text-xs font-medium mb-0.5 inline-block">
-            Max. location shifts pr. day
-          </Label>
-          <Select defaultValue="3">
-            <SelectTrigger className="h-7 text-xs">
-              <SelectValue placeholder="Select" />
-            </SelectTrigger>
-            <SelectContent>
-              {[1, 2, 3, 4, 5].map(i => (
-                <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="space-y-2">
+          <label className="block text-sm">Max. positions pr. day</label>
+          <select className="w-full border border-gray-300 rounded p-2 bg-white text-sm">
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+          </select>
         </div>
         
-        <div>
-          <Label htmlFor="max-working-time" className="text-xs font-medium mb-0.5 inline-block">
-            Max. working time in period
-          </Label>
-          <Select defaultValue="8">
-            <SelectTrigger className="h-7 text-xs">
-              <SelectValue placeholder="Select" />
-            </SelectTrigger>
-            <SelectContent>
-              {[6, 7, 8, 9, 10].map(i => (
-                <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="space-y-2">
+          <label className="block text-sm">Max. working time in period</label>
+          <select className="w-full border border-gray-300 rounded p-2 bg-white text-sm">
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+          </select>
         </div>
         
-        <div>
-          <Label htmlFor="max-gap-hours" className="text-xs font-medium mb-0.5 inline-block">
-            Max. gap hours pr. week
-          </Label>
-          <Select defaultValue="4">
-            <SelectTrigger className="h-7 text-xs">
-              <SelectValue placeholder="Select" />
-            </SelectTrigger>
-            <SelectContent>
-              {[2, 3, 4, 5, 6].map(i => (
-                <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="space-y-2">
+          <label className="block text-sm">Max. gap hours pr. week</label>
+          <select className="w-full border border-gray-300 rounded p-2 bg-white text-sm">
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+          </select>
         </div>
         
-        <div>
-          <Label htmlFor="min-consecutive-gap" className="text-xs font-medium mb-0.5 inline-block">
-            Min. consecutive gap hours
-          </Label>
-          <Select defaultValue="2">
-            <SelectTrigger className="h-7 text-xs">
-              <SelectValue placeholder="Select" />
-            </SelectTrigger>
-            <SelectContent>
-              {[1, 2, 3, 4].map(i => (
-                <SelectItem key={i} value={i.toString()}>{i}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="space-y-2">
+          <label className="block text-sm">Min. consecutive gap hours</label>
+          <select className="w-full border border-gray-300 rounded p-2 bg-white text-sm">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
         </div>
       </div>
       
-      <div className="flex items-center gap-6">
+      <div className="mt-3 flex items-center gap-6">
         <div className="flex items-center space-x-2">
-          <Checkbox id="count-bindings" className="h-3.5 w-3.5" />
-          <Label htmlFor="count-bindings" className="text-xs">
+          <Checkbox id="count-bindings" />
+          <label htmlFor="count-bindings" className="text-sm">
             Count bindings without classes
-          </Label>
+          </label>
         </div>
         
         <div className="flex items-center space-x-2">
-          <Checkbox id="time-every-day" className="h-3.5 w-3.5" />
-          <Label htmlFor="time-every-day" className="text-xs">
+          <Checkbox id="time-every-day" />
+          <label htmlFor="time-every-day" className="text-sm">
             Time every day
-          </Label>
+          </label>
         </div>
       </div>
     </div>

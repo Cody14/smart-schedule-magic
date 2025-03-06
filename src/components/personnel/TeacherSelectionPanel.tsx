@@ -1,8 +1,7 @@
 
 import React from 'react';
-import { Search } from 'lucide-react';
+import { Search, X, CheckCheck, Edit } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import TeacherChips, { TeacherChip } from '@/components/schedule/TeacherChips';
 
@@ -27,40 +26,50 @@ const TeacherSelectionPanel: React.FC<TeacherSelectionPanelProps> = ({
   );
 
   return (
-    <div className="w-full lg:w-[40%] xl:w-[35%] space-y-2">
-      <div className="flex items-center justify-between mb-1">
-        <Label className="text-xs font-medium">Select Personnel</Label>
-        <span className="text-xs text-gray-500">{selectedTeachers.length}/{teachers.length}</span>
+    <div className="bg-gray-50 p-4 rounded-lg flex-1">
+      <div className="flex items-center justify-between mb-2">
+        <div className="text-sm font-medium">Select Personnel</div>
+        <div className="text-sm text-gray-500">{selectedTeachers.length}/{teachers.length}</div>
       </div>
-      <div className="flex items-center gap-2">
+      
+      <div className="flex items-center gap-2 mb-3">
         <div className="relative flex-1">
-          <Search className="absolute left-2 top-1.5 h-3.5 w-3.5 text-gray-500" />
           <Input
             type="text"
-            placeholder="Search personnel..."
-            className="pl-7 h-7 text-xs"
+            placeholder="BC CF EM HU +23"
+            className="pl-2 pr-8 py-1 h-9 border border-gray-300 rounded"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+            <button className="text-gray-500 hover:text-gray-700"><X size={16} /></button>
+            <button className="text-gray-500 hover:text-gray-700"><CheckCheck size={16} /></button>
+            <button className="text-gray-500 hover:text-gray-700 bg-green-100 p-1 rounded"><Edit size={16} /></button>
+          </div>
         </div>
         <Select defaultValue="option-1">
-          <SelectTrigger className="h-7 text-xs w-48">
+          <SelectTrigger className="h-9 text-sm w-48 border border-gray-300">
             <SelectValue placeholder="Control position number" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="option-1">Option 1</SelectItem>
+            <SelectItem value="option-1">Control position number</SelectItem>
             <SelectItem value="option-2">Option 2</SelectItem>
           </SelectContent>
         </Select>
       </div>
-      <div className="p-1.5 border rounded-md bg-gray-50 h-[130px]">
-        <TeacherChips 
-          teachers={filteredTeachers} 
-          selectedTeachers={selectedTeachers}
-          onTeacherClick={handleTeacherClick}
-          selectable
-          size="sm"
-        />
+      
+      <div className="flex flex-wrap gap-1">
+        {selectedTeachers.map((teacherId) => {
+          const teacher = teachers.find(t => t.id === teacherId);
+          if (!teacher) return null;
+          
+          return (
+            <div key={teacher.id} className="bg-green-100 px-2 py-1 rounded flex items-center gap-1 text-sm">
+              {teacher.initials}
+              <X size={14} className="text-gray-600 cursor-pointer" onClick={() => handleTeacherClick(teacher)} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
