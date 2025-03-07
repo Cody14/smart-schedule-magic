@@ -21,31 +21,34 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
   teachers,
 }) => {
   return (
-    <div className="p-4 bg-gray-100">
+    <div className="p-4 pb-0 bg-gray-100">
       {/* New layout with 3 columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Column 1: Teacher selection area and settings */}
-        <div className="lg:col-span-7">
-          <div className="flex flex-col space-y-3">
-            <TeacherSelectionPanel
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              selectedTeachers={selectedTeachers}
-              handleTeacherClick={handleTeacherClick}
-              teachers={teachers}
-            />
-            
-            <SettingsGrid />
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
+        {/* Column 1: Teacher selection area */}
+        <div className="lg:col-span-5">
+          <TeacherSelectionPanel
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            selectedTeachers={selectedTeachers}
+            handleTeacherClick={handleTeacherClick}
+            teachers={teachers}
+          />
         </div>
 
-        {/* Column 2: Additional settings */}
-        <div className="lg:col-span-2">
-          <div className="bg-gray-50 p-4 rounded-lg w-full h-full">
-            <div className="space-y-3">
+        {/* Column 2: Additional settings with Control position number */}
+        <div className="lg:col-span-4">
+          <div className="bg-gray-50 p-3 rounded-lg w-full">
+            <div className="space-y-2.5">
               <div className="space-y-1">
-                <label className="block text-sm">Max. gap hours pr. week</label>
-                <select className="w-full border border-gray-300 rounded p-1 bg-white text-sm h-8">
+                <label className="block text-xs font-medium">Control position number</label>
+                <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
+                  <option>Control position number</option>
+                </select>
+              </div>
+              
+              <div className="space-y-1">
+                <label className="block text-xs font-medium">Max. gap hours pr. week</label>
+                <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
                   <option>3</option>
                   <option>4</option>
                   <option>5</option>
@@ -54,8 +57,8 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
               </div>
               
               <div className="space-y-1">
-                <label className="block text-sm">Max. consecutive gap hours</label>
-                <select className="w-full border border-gray-300 rounded p-1 bg-white text-sm h-8">
+                <label className="block text-xs font-medium">Max. consecutive gap hours</label>
+                <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -64,8 +67,8 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
               </div>
               
               <div className="space-y-1">
-                <label className="block text-sm">Min. consecutive gap hours</label>
-                <select className="w-full border border-gray-300 rounded p-1 bg-white text-sm h-8">
+                <label className="block text-xs font-medium">Min. consecutive gap hours</label>
+                <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -79,6 +82,11 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
         {/* Column 3: Comment section */}
         <div className="lg:col-span-3">
           <CommentSection />
+        </div>
+
+        {/* Settings Grid below, full width */}
+        <div className="lg:col-span-12">
+          <SettingsGrid />
         </div>
       </div>
     </div>
