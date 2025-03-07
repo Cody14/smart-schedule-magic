@@ -35,23 +35,33 @@ const TeacherSelectionPanel: React.FC<TeacherSelectionPanelProps> = ({
       </div>
       
       <div className="flex flex-col h-full">
-        <div className="flex flex-wrap items-center border border-gray-300 rounded bg-white p-1 min-h-[5.5rem]">
-          {selectedTeachers.map((teacherId) => {
-            const teacher = teachers.find(t => t.id === teacherId);
-            if (!teacher) return null;
+        {/* Teacher selection area with selected chips (blue boxes in mockup) */}
+        <div className="flex flex-col gap-1 mb-1">
+          <div className="flex flex-wrap items-center border border-gray-300 rounded bg-white p-1 h-8">
+            {selectedTeachers.map((teacherId) => {
+              const teacher = teachers.find(t => t.id === teacherId);
+              if (!teacher) return null;
+              
+              return (
+                <div key={teacher.id} className="bg-blue-100 px-1 py-0.5 rounded flex items-center gap-0.5 text-xs m-0.5">
+                  {teacher.initials}
+                  <X size={10} className="text-gray-600 cursor-pointer" onClick={() => handleTeacherClick(teacher)} />
+                </div>
+              );
+            })}
             
-            return (
-              <div key={teacher.id} className="bg-green-100 px-1 py-0.5 rounded flex items-center gap-0.5 text-xs m-0.5">
-                {teacher.initials}
-                <X size={10} className="text-gray-600 cursor-pointer" onClick={() => handleTeacherClick(teacher)} />
-              </div>
-            );
-          })}
-          
-          {selectedTeachers.length > 0 && <span className="text-gray-500 text-xs m-0.5">+{totalTeacherCount - selectedTeacherCount}</span>}
+            {selectedTeachers.length > 0 && <span className="text-gray-500 text-xs m-0.5">+{totalTeacherCount - selectedTeacherCount}</span>}
+          </div>
+
+          {/* Empty area for the next selection (green box in mockup) */}
+          <div className="border border-gray-300 rounded bg-white h-8"></div>
+
+          {/* Empty area for the third selection (orange box in mockup) */}
+          <div className="border border-gray-300 rounded bg-white h-8"></div>
         </div>
 
-        <div className="mt-2">
+        {/* Search field at the bottom (blue number 4 in mockup) */}
+        <div className="mt-1">
           <div className="flex items-center gap-1 border border-gray-300 rounded bg-white px-1 py-0.5 h-6">
             <Input
               type="text"
