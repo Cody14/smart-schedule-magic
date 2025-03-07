@@ -6,48 +6,39 @@ const SettingsGrid: React.FC = () => {
   return (
     <div className="bg-gray-50 p-3 rounded-lg w-full">
       <div className="grid grid-cols-4 gap-3">
-        <div className="space-y-1">
+        {/* Blue marked fields - left side */}
+        <div className="space-y-1 col-span-1">
           <label className="block text-xs font-medium">Min. positions pr. day</label>
           <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
             <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
           </select>
         </div>
         
-        <div className="space-y-1">
+        <div className="space-y-1 col-span-1">
           <label className="block text-xs font-medium">Max. location shifts pr. day</label>
           <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
             <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
           </select>
         </div>
         
-        <div className="space-y-1">
+        {/* Green marked fields - right side */}
+        <div className="space-y-1 col-span-1">
           <label className="block text-xs font-medium">Max. positions pr. day</label>
           <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
             <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
           </select>
         </div>
         
-        <div className="space-y-1">
+        <div className="space-y-1 col-span-1">
           <label className="block text-xs font-medium">Max. working time in period</label>
           <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
             <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
           </select>
         </div>
       </div>
       
       <div className="flex items-center justify-between mt-2">
+        {/* Orange marked field - bottom left */}
         <div className="flex items-center space-x-2">
           <Checkbox id="count-bindings" className="h-3 w-3" />
           <label htmlFor="count-bindings" className="text-xs">
@@ -55,6 +46,7 @@ const SettingsGrid: React.FC = () => {
           </label>
         </div>
         
+        {/* Teal marked field - bottom right */}
         <div className="flex items-center space-x-2">
           <Checkbox id="time-every-day" className="h-3 w-3" />
           <label htmlFor="time-every-day" className="text-xs">

@@ -22,10 +22,10 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
 }) => {
   return (
     <div className="p-4 pb-0 bg-gray-100">
-      {/* New layout with 3 columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
+      {/* Top row with 3 columns */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 mb-3">
         {/* Column 1: Teacher selection area */}
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-4">
           <TeacherSelectionPanel
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -35,10 +35,10 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
           />
         </div>
 
-        {/* Column 2: Additional settings with Control position number */}
+        {/* Column 2: Control position settings */}
         <div className="lg:col-span-4">
-          <div className="bg-gray-50 p-3 rounded-lg w-full">
-            <div className="space-y-2.5">
+          <div className="bg-gray-50 p-3 rounded-lg w-full h-full">
+            <div className="space-y-2">
               <div className="space-y-1">
                 <label className="block text-xs font-medium">Control position number</label>
                 <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
@@ -50,9 +50,6 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
                 <label className="block text-xs font-medium">Max. gap hours pr. week</label>
                 <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
                   <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
                 </select>
               </div>
               
@@ -60,9 +57,6 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
                 <label className="block text-xs font-medium">Max. consecutive gap hours</label>
                 <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
                   <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
                 </select>
               </div>
               
@@ -70,9 +64,6 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
                 <label className="block text-xs font-medium">Min. consecutive gap hours</label>
                 <select className="w-full border border-gray-300 rounded p-1 bg-white text-xs h-7">
                   <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
                 </select>
               </div>
             </div>
@@ -80,14 +71,14 @@ const CombinedPersonnelPanel: React.FC<CombinedPersonnelPanelProps> = ({
         </div>
           
         {/* Column 3: Comment section */}
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-4">
           <CommentSection />
         </div>
+      </div>
 
-        {/* Settings Grid below, full width */}
-        <div className="lg:col-span-12">
-          <SettingsGrid />
-        </div>
+      {/* Settings Grid below, full width */}
+      <div className="lg:col-span-12">
+        <SettingsGrid />
       </div>
     </div>
   );

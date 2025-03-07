@@ -8,7 +8,7 @@ const CommentSection: React.FC = () => {
       <div className="text-xs font-medium mb-1">Comment</div>
       <Textarea
         placeholder="Add a comment..."
-        className="resize-none h-[107px] border border-gray-300 text-xs p-2"
+        className="resize-none h-[6.25rem] border border-gray-300 text-xs p-2 bg-white"
       />
     </div>
   );
