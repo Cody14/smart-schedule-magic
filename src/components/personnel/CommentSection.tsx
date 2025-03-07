@@ -4,7 +4,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 const CommentSection: React.FC = () => {
   return (
-    <div className="bg-gray-50 p-4 rounded-lg flex-1">
+    <div className="bg-gray-50 p-4 rounded-lg w-full">
       <div className="text-sm font-medium mb-2">Comment</div>
       <Textarea
         placeholder="Add a comment..."
